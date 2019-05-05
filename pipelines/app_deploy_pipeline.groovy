@@ -1,5 +1,5 @@
 import Consts
-@Library("devops-delivery@version2") _
+@Library("devops-delivery@master") _
 import AppConfiguration
 
 // Call from file app_deploy_job.groovy

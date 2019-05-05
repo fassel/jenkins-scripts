@@ -24,8 +24,8 @@ listView('city-tech-view') {
         name(Consts.publishReleaseJobName)
         name(Consts.publishInstallationJobName)
         name(Consts.deployAppJobName)
-        name(Consts.tomcatRpmJobName)
-        name(Consts.nginxRpmJobName)
+        //name(Consts.tomcatRpmJobName)
+        //name(Consts.nginxRpmJobName)
     }
     columns {
         name()
@@ -52,10 +52,10 @@ listView('city-tech-view') {
     }
 }*/
 
-listView('msp2-build') {
-    description('Jobs for msp2')
+listView('main-build') {
+    description('Jobs for main')
     jobs {
-        regex(/(m|i)sp2-build.+/)
+        regex(/(m|i)ain-build.+/)
     }
     columns {
         name()

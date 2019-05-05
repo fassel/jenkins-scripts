@@ -17,8 +17,8 @@ class Consts {
     static String devopsReleaseRepository = 'ru/msp/devops/release'
     static String rpmRepositorySearch = 'msp-yum'
     static String rpmSnapshotRepositorySearch = 'msp-yum-snapshots'
-    static String rpmRepository = "${rpmRepositorySearch}/msp2"
-    static String rpmSnapshotRepository = "${rpmSnapshotRepositorySearch}/msp2"
+    static String rpmRepository = "${rpmRepositorySearch}/main"
+    static String rpmSnapshotRepository = "${rpmSnapshotRepositorySearch}/main"
     static String nexusUser = 'mp3deployer'
     static String nexusPassword = 'ScjKLQuvqfAXu2bs8ysLAvRt'
     static String nexusCredentials = "${nexusUser}:${nexusPassword}"
@@ -37,7 +37,7 @@ class Consts {
     static String gitDeliveryConfiguration = 'git@gitlab.alx:devops/msp-delivery-configuration.git'
     static String gitDeliveryVersion = 'git@gitlab.alx:devops/msp-delivery-version.git'
     static String gitApplicationConfigs = 'git@10.20.0.17:devops/app-configs.git'
-    static String gitJenkinsLibraryBranch = 'version2'
+    static String gitJenkinsLibraryBranch = 'master'
 
     // ----- JENKINS TOOLS -----
     static String gradleToolName = 'G431'

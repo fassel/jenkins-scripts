@@ -21,9 +21,6 @@ pipelineJob(Consts.deployAppJobName) {
                             if (projectType == '${AppConfiguration.frontendType}') {
                                 return ['${Consts.deployAsRpm}', '${Consts.deployAsArchive}']
                             }
-                            if (projectType == '${AppConfiguration.javaType}') {
-                                return ['${Consts.deployAsRpm}', '${Consts.deployAsTomcatArtifact}']
-                            }
                             if (projectType == '${AppConfiguration.goType}') {
                                 return ['${Consts.deployAsRpm}', '${Consts.deployAsDocker}']
                             }
@@ -49,17 +46,6 @@ pipelineJob(Consts.deployAppJobName) {
                         try {
                             def projects = ${AppConfiguration.getProjectsGroupByType().inspect()}
                             projects = projects[projectType]
-                            if (projectType == '${AppConfiguration.tomcatType}') {
-                                projects = [[
-                                    project: 'msp-tomcat',
-                                    app    : 'msp-tomcat',
-                                ]]
-                            } else if (projectType == '${AppConfiguration.nginxType}') {
-                                projects = [[
-                                    project: 'msp-nginx',
-                                    app    : 'msp-nginx',
-                                ]]
-                            }
                             List<String> artifacts = new ArrayList<String>()
                             for (item in projects) {
                                 artifacts.add(item.app)

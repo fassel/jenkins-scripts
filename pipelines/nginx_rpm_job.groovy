@@ -10,7 +10,7 @@ pipelineJob(Consts.nginxRpmJobName) {
                     deleteDir()
                 
                     stage('checkout') {
-                        git url:'${Consts.gitDeliveryConfiguration}', branch: 'version2', 
+                        git url:'${Consts.gitDeliveryConfiguration}', branch: 'master', 
                             credentialsId: '${Consts.mp3DeployerCredential}'
                     }
                 
