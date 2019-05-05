@@ -1,0 +1,78 @@
+all:
+  hosts:
+    msp-dev:
+      ansible_host: 10.250.9.33
+      pg_host: msk-pgsql.msp.mobi
+      pg_user: msp-dev
+      pg_pass: gAgmQRTyzu3wKJmdf9Qy59nH6
+      domain: 10.250.9.33
+
+    msp-test:
+      ansible_host: 10.250.9.34
+      pg_host: msk-pgsql.msp.mobi
+      pg_user: msp-test
+      pg_pass: XsukzZTFZuZBhjz7An6YXv2UW
+      domain: 10.250.9.34
+
+    msp-alpha:
+      ansible_host: 10.250.9.35
+      pg_host: msk-pgsql.msp.mobi
+      pg_user: msp-alpha
+      pg_pass: JxY96xLF8zfh3g8EWvSDtLUBw
+      domain: 10.250.9.35
+
+    demo.citymatica.com:
+      ansible_host: 94.130.230.216
+      pg_host: citymatica-pgsql.msp.mobi
+      pg_user: demo
+      pg_pass: V2HJJhuBRe95z7FwxstmZ9
+      domain: demo.citymatica.com
+
+    ladpc.citymatica.com:
+      ansible_host: 10.20.0.16
+      pg_host: citymatica-pgsql.msp.mobi
+      pg_user: ladpc
+      pg_pass: MugaQ8JzSNx7MThzonbM8Y
+      domain: ladpc.citymatica.com
+
+    valedopinhao.citymatica.com:
+      ansible_host: 195.201.117.176
+      pg_host: citymatica-pgsql.msp.mobi
+      pg_user: valedopinhao
+      pg_pass: 9Yrd3kNYrERSqkncqTWaw7
+      domain: valedopinhao.citymatica.com
+
+    ramat-gan.citymatica.com:
+      ansible_host: 94.130.171.234
+      pg_host: postgresql
+      pg_user: mp
+      pg_pass: mpP@ZZw0rd
+      domain: ramat-gan.citymatica.com
+
+    recriesuacidade.citymatica.com:
+      ansible_host: 94.130.175.94
+      pg_host: postgresql
+      pg_user: mp
+      pg_pass: mpP@ZZw0rd
+      domain: recriesuacidade.citymatica.com
+
+    es.citymatica.com:
+      ansible_host: 94.130.230.217
+      pg_host: postgresql
+      pg_user: mp
+      pg_pass: mpP@ZZw0rd
+      domain: es.citymatica.com
+
+    heb.citymatica.com:
+      ansible_host: 94.130.105.124
+      pg_host: postgresql
+      pg_user: mp
+      pg_pass: mpP@ZZw0rd
+      domain: heb.citymatica.com
+
+    sao-tome.citymatica.com:
+      ansible_host: 94.130.107.6
+      pg_host: postgresql
+      pg_user: mp
+      pg_pass: mpP@ZZw0rd
+      domain: sao-tome.citymatica.com

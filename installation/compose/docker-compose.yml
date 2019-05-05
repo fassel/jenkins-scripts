@@ -1,0 +1,170 @@
+version: '2.1'
+
+networks:
+  msp:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
+
+services:
+  #dns
+  dnsmasq:
+    image: tl-docker-snapshots.nx.alx/s3dnsmasq:0.0.2-SNAPSHOT
+    hostname: dnsmasq
+    container_name: dnsmasq
+    extends:
+      file: service-compose.yml
+      service: log-restart
+    networks:
+      msp:
+        ipv4_address: 172.20.0.21
+    healthcheck:
+      interval: 5s
+      test: "pgrep dnsmasq || exit 1"
+    volumes:
+      - ./dnsmasq/platform.conf:/etc/dnsmasq.d/platform.conf
+
+  #gate
+  nginx:
+    image: nginx:1.13.8
+    hostname: nginx
+    container_name: nginx
+    extends:
+      file: service-compose.yml
+      service: msp-log-dns-restart
+    networks:
+      msp:
+        ipv4_address: 172.20.0.31
+    ports:
+     - 80:80  # mobile-api
+     - 9090:9090 # service-api
+     - 7777:7777 # operator-ui
+     - 7778:7778 # frontend-ui
+    volumes:
+     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+     - ./nginx/platform.conf:/etc/nginx/conf.d/platform.conf
+     - ./web/operator-ui:/var/www/operator-ui
+     - ./web/frontend-ui:/var/www/frontend-ui
+     - ./web/conf:/var/www/conf
+
+  rabbitmq:
+    image : rabbitmq:3.7.2-management
+    hostname: rabbitmq
+    container_name: rabbitmq
+    extends:
+      file: service-compose.yml
+      service: msp-log-dns-restart
+    networks:
+      msp:
+        ipv4_address: 172.20.0.33
+    healthcheck:
+      test:  rabbitmqctl -q status ||exit 1
+    depends_on:
+      dnsmasq:
+        condition: service_healthy
+    ports:
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=mp
+      - RABBITMQ_DEFAULT_PASS=mpP@ZZw0rd
+    volumes :
+      - stage_rabbitmq_data_dir:/var/lib/rabbitmq/mnesia
+
+  mongodb:
+    image: mongo:3.2.6
+    hostname: mongodb
+    container_name: mongodb
+    extends:
+      file: service-compose.yml
+      service: msp-log-dns-restart
+    ports:
+      - 27017:27017
+    volumes :
+     - stage_mongodb_data_dir:/data/db
+    networks:
+      msp:
+        ipv4_address: 172.20.0.34
+    healthcheck:
+      test: exit 0
+    depends_on:
+      dnsmasq:
+        condition: service_healthy
+
+  es:
+    image: elasticsearch:2.4.6
+    hostname: es
+    container_name: es
+    extends:
+      file: service-compose.yml
+      service: msp-log-dns-restart
+    networks:
+      msp:
+        ipv4_address: 172.20.0.23
+    depends_on:
+      dnsmasq:
+        condition: service_healthy
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=0.0.0.0
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - stage_es_data_dir:/usr/share/elasticsearch/data
+
+  tomcat:
+    image: tl-docker-snapshots.nx.alx/msp-tomcat:0.0.2
+    hostname: tomcat
+    container_name: tomcat
+    extends:
+      file: service-compose.yml
+      service: msp-log-dns-restart
+    networks:
+      msp:
+        ipv4_address: 172.20.0.50
+    depends_on:
+      dnsmasq:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    mem_limit: 3gb
+    environment:
+      CATALINA_OPTS: >
+        -Xms500m -Xmx2000m
+        -Dspring.jmx.enabled=false
+        -Dsecurity.basic.enabled=false
+        -Dspring.profiles.active=default,local
+        -Dhazelcast.health.monitoring.level=OFF
+        -agentlib:jdwp=transport=dt_socket,address=18000,server=y,suspend=n
+        -Dcom.sun.management.jmxremote.port=19000
+        -Dcom.sun.management.jmxremote.authenticate=false
+        -Dcom.sun.management.jmxremote.ssl=false
+        -Dcom.sun.management.jmxremote.rmi.port=19000
+        -Djava.rmi.server.hostname=${DOMAIN:-0.0.0.0}
+    ports:
+      - 8100:8000   # socketio.operator.port
+      - 8200:8001   # socketio.client.port
+      - 18080:8080  # tomcat
+      - 18880:18880 # backend.port
+      - 18888:18888 # msp.awip.port
+      - 18889:18889 # msp.awip.operator.port
+      - 18000:18000 # debug
+      - 19000:19000 # jmx
+      - 19191:19191 # webadmin.socket.port
+    volumes:
+      - ./tomcat/webapps:/usr/local/tomcat/webapps
+      - ./tomcat/conf:/usr/local/tomcat/conf/apps
+      - ./tomcat/context.xml:/usr/local/tomcat/conf/context.xml
+      - ./tomcat/server.xml:/usr/local/tomcat/conf/server.xml
+      - ./tomcat/web.xml:/usr/local/tomcat/conf/web.xml
+      - ./tomcat/tomcat-logback.xml:/usr/local/tomcat/conf/tomcat-logback.xml
+
+
+volumes:
+  stage_rabbitmq_data_dir:
+  stage_mongodb_data_dir:
+  stage_es_data_dir:
+

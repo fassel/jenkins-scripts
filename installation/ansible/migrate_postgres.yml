@@ -1,0 +1,30 @@
+---
+
+- hosts: '{{ host }}'
+  remote_user: '{{ user }}'
+  any_errors_fatal: true
+  become: true
+  tasks:
+    - name: pull postgress image
+      shell: docker pull postgres:9.6.8-alpine
+    - name: copy to host
+      shell: docker cp postgresql:/tmp/pg_all.sql /tmp/pg_all.sql && gzip -c9 /tmp/pg_all.sql > /tmp/pg_all.sql.gz && rm -f /tmp/pg_all.sql
+    - name: fetch postgres dump
+      fetch:
+        src: /tmp/pg_all.sql.gz
+        dest: /tmp/
+        flat: yes
+        fail_on_missing: yes
+
+- hosts: '{{ copy_to }}'
+  remote_user: '{{ user }}'
+  any_errors_fatal: true
+  become: true
+  tasks:
+    - name: copy postgres dump
+      copy:
+        src: /tmp/pg_all.sql.gz
+        dest: /tmp/pg_all.sql.gz
+        force: yes
+    - name: restore postgres dump
+      shell: gzip -df /tmp/pg_all.sql.gz && docker cp /tmp/pg_all.sql postgresql:./pg_all.sql && docker exec --tty postgresql psql -U postgres -q -f /pg_all.sql

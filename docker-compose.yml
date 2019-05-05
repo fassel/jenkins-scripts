@@ -1,0 +1,27 @@
+version: '2.1'
+
+networks:
+  msp:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.21.0.0/24
+          gateway: 172.21.0.1
+
+services:
+ 
+  jenkins:
+    image: jenkins/jenkins:lts
+    hostname: jenkins
+    container_name: jenkins
+    networks:
+      msp:
+        ipv4_address: 172.21.0.10
+    dns: 10.250.86.34
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - ~/projects/jenkins/:/var/jenkins_home
+

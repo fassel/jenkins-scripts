@@ -1,0 +1,9 @@
+spring.jpa.properties.hibernate.default_schema: PG_SCHEMA
+
+spring.datasource:
+  jndi-name: java:comp/env/jdbc/msp
+
+liquibase:
+  url: "jdbc:postgresql://PG_HOST:5432/PG_DATABASE?currentSchema=PG_SCHEMA,public&connectTimeout=120"
+  user: PG_USERNAME
+  password: PG_PASSWORD
