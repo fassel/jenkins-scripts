@@ -1,4 +1,4 @@
-def Consts = this.class.classLoader.parseClass(readFileFromWorkspace('src/Consts.groovy'))
+def Consts = this.class.classLoader.parseClass(this.readFileFromWorkspace('src/Consts.groovy'))
 
 listView('city-build-view') {
     description('Jobs for citymatica')
