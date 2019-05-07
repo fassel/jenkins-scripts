@@ -50,7 +50,7 @@ def deployRpm(host, archive, deployPath, app, arch, domain) {
     remote.host = host
     remote.allowAnyHosts = true
 
-    withCredentials([sshUserPrivateKey(credentialsId: Consts.mp3DeployerCredential, keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+    withCredentials([sshUserPrivateKey(credentialsId: Consts.mp3DeployerSshCredential, keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
         remote.user = userName
         remote.identityFile = identity
         sshPut remote: remote, from: "${archiveLocalLocation}", into: "${deployPath}/${archive}"
@@ -83,25 +83,25 @@ def deployDefault(host, archive, deployPath, app, domain, isDocker) {
     remote.host = host
     remote.allowAnyHosts = true
 
-    /*withCredentials([sshUserPrivateKey(credentialsId: Consts.mp3DeployerCredential, keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+    withCredentials([sshUserPrivateKey(credentialsId: Consts.mp3DeployerSshCredential, keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
         remote.user = userName
         remote.identityFile = identity
         def configFilesPath = checkConfigFiles(domain, app)
         println '-----------------------------'
-        println "FILE CONFIGS FOR PROJECT: ${app} AND DOMAIN: ${domain} IS: ${configFilesPath}"*/
+        println "FILE CONFIGS FOR PROJECT: ${app} AND DOMAIN: ${domain} IS: ${configFilesPath}"
 
         sshCommand remote: remote, command: "mkdir -p ${deployPath}/${app} | true"
         // Do it two times because we need to have docker-compose.yml to stop container
         // and second time because we need to overwrite existing project files
-        /*if (configFilesPath) {
+        if (configFilesPath) {
             sshPut remote: remote, from: "${configFilesPath}", into: "${deployPath}"
         }
         if (isDocker) {
             sshCommand remote: remote, command: "cd ${deployPath}/${app} && docker-compose stop"
-        }*/
+        }
         sshPut remote: remote, from: "${archiveLocalLocation}", into: "${deployPath}/${app}/${archive}"
         sshCommand remote: remote, command: "cd ${deployPath}/${app} && tar -xzvmf ${archive} && rm ${archive}"
-        /*if (configFilesPath) {
+        if (configFilesPath) {
             sshPut remote: remote, from: "${configFilesPath}", into: "${deployPath}"
         }
         if (isDocker) {
@@ -113,7 +113,7 @@ def deployDefault(host, archive, deployPath, app, domain, isDocker) {
                 sshCommand remote: remote, command: "cd ${deployPath}/${app} && chmod +x ${Consts.executeAfterDeployFileName} && ./${Consts.executeAfterDeployFileName}"
             }
         }
-    }*/
+    }
     // && (docker exec -t nginx service nginx restart || true)
 }
 
@@ -131,7 +131,7 @@ def deployWar(host, archive, tomcatDeployPath) {
     remote.host = host
     remote.allowAnyHosts = true
 
-    withCredentials([sshUserPrivateKey(credentialsId: Consts.mp3DeployerCredential, keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+    withCredentials([sshUserPrivateKey(credentialsId: Consts.mp3DeployerSshCredential, keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
         remote.user = userName
         remote.identityFile = identity
         sshPut remote: remote, from: "${archiveLocalLocation}", into: "${tomcatDeployPath}/${archive}"

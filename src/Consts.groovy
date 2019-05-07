@@ -27,6 +27,7 @@ class Consts {
     static String telegramCredential = '6e162f45-d771-4051-a661-b75363dc252b'
     static String defaultTelegramSocks5Credential = '4e0662c7-3460-487d-a6bf-618c28c48986'
     static String mp3DeployerCredential = 'ci-runner'
+    static String mp3DeployerSshCredential = 'ci-runner'
     static String nexusMp3DeployerCredential = 'nexus-mp3deployer-user'
     //static String mpDeployerCredential = '3c354c64-fabe-45ab-9bd7-dcde9b321711'
 
