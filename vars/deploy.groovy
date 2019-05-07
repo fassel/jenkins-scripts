@@ -43,7 +43,7 @@ def checkConfigFiles(host, app) {
 def deployRpm(host, archive, deployPath, app, arch, domain) {
     println "Rpm install ${host} ${app}:${version}:${arch}"
 
-    def archiveLocalLocation = "${WORKSPACE}/${archive}"
+    def archiveLocalLocation = "/tmp/${archive}"
 
     def remote = [:]
     remote.name = host
@@ -70,7 +70,7 @@ def deployRpm(host, archive, deployPath, app, arch, domain) {
 }
 
 def deployDefault(host, archive, deployPath, app, domain, isDocker) {
-    def archiveLocalLocation = "${WORKSPACE}/${archive}"
+    def archiveLocalLocation = "/tmp/${archive}"
 
     if (!fileExists(archiveLocalLocation)) {
         currentBuild.result = 'FAILURE'
@@ -118,7 +118,7 @@ def deployDefault(host, archive, deployPath, app, domain, isDocker) {
 }
 
 def deployWar(host, archive, tomcatDeployPath) {
-    def archiveLocalLocation = "${WORKSPACE}/${archive}"
+    def archiveLocalLocation = "/tmp/${archive}"
 
     if (!fileExists(archiveLocalLocation)) {
         currentBuild.result = 'FAILURE'
