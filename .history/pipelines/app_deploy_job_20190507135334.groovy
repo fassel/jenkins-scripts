@@ -12,29 +12,6 @@ pipelineJob(Consts.deployAppJobName) {
 
             choiceParam('domain', EnvConfiguration.domainList(), 'Select domain to deploy')
             choiceParam('projectType', AppConfiguration.getProjectTypes(), 'Select project type')
-            //choiceParam('application', AppConfiguration.getApplications(), 'Select project to deploy')
-            activeChoiceReactiveParam('application') {
-                description('Select project to deploy')
-                choiceType('SINGLE_SELECT')
-                groovyScript {
-                    script(""" 
-                        try {
-                            def projects = ${AppConfiguration.getProjectsGroupByType().inspect()}
-                            projects = projects[projectType]
-                            List<String> artifacts = new ArrayList<String>()
-                            for (item in projects) {
-                                artifacts.add(item.app)
-                            }
-                            return artifacts.toSorted { a, b -> a <=> b }
-                        } catch (ex) {
-                            return  [ex.getMessage()]
-                        }
-
-                    """.stripIndent())
-                    fallbackScript('["error"]')
-                }
-                referencedParameter('projectType')
-            }
             activeChoiceReactiveParam('deployAs') {
                 description('Select how deploy the project')
                 choiceType('SINGLE_SELECT')
@@ -51,6 +28,29 @@ pipelineJob(Consts.deployAppJobName) {
                                 return ['${Consts.deployAsRpm}']
                             }
                             return []
+                        } catch (ex) {
+                            return  [ex.getMessage()]
+                        }
+
+                    """.stripIndent())
+                    fallbackScript('["error"]')
+                }
+                referencedParameter('projectType')
+            }
+            //choiceParam('application', AppConfiguration.getApplications(), 'Select project to deploy')
+            activeChoiceReactiveParam('application') {
+                description('Select project to deploy')
+                choiceType('SINGLE_SELECT')
+                groovyScript {
+                    script(""" 
+                        try {
+                            def projects = ${AppConfiguration.getProjectsGroupByType().inspect()}
+                            projects = projects[projectType]
+                            List<String> artifacts = new ArrayList<String>()
+                            for (item in projects) {
+                                artifacts.add(item.app)
+                            }
+                            return artifacts.toSorted { a, b -> a <=> b }
                         } catch (ex) {
                             return  [ex.getMessage()]
                         }
