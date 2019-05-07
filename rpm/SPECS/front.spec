@@ -1,7 +1,6 @@
 
-%define _nginx_user msp-owner
-%define _nginx_home /opt/msp/msp-nginx/front
-%define _msp_home /opt/msp
+%define _nginx_user nginx
+%define _msp_home /var/www
 
 %define _app_name    %{__app_name}
 %define _app_version %{__app_version}
@@ -37,12 +36,12 @@ rm -rf %{buildroot}
 
 %install
 
-mkdir -p %{buildroot}%{_nginx_home}/%{_app_name}
-tar -zxvf %{_sourcedir}/%{_app_binary} --directory %{buildroot}%{_nginx_home}/%{_app_name}
+mkdir -p %{buildroot}%{_msp_home}/%{_app_name}
+tar -zxvf %{_sourcedir}/%{_app_binary} --directory %{buildroot}%{_msp_home}/%{_app_name}
 rm %{_sourcedir}/%{_app_binary}
-install -d -m 755 %{buildroot}%{_nginx_home}/%{_app_name}
+install -d -m 755 %{buildroot}%{_msp_home}/%{_app_name}
 install -d -m 755 %{buildroot}%{_app_home}
-install -d -m 755 %{_sourcedir} %{buildroot}%{_nginx_home}/%{_app_name}
+install -d -m 755 %{_sourcedir} %{buildroot}%{_msp_home}/%{_app_name}
 
 %pre
 
@@ -54,8 +53,8 @@ case "$1" in
   ;;
 esac
 
-service msp-nginx stop
-service msp-nginx start
+service nginx stop
+service nginx start
 
 %preun
 
@@ -65,6 +64,6 @@ service msp-nginx start
 %defattr(-,%{_nginx_user},%{_nginx_user},0770)
 %{_app_home}
 %defattr(-,%{_nginx_user},%{_nginx_user},0770)
-%{_nginx_home}/%{_app_name}
-#%{_nginx_home}/conf/%{_app_config_tmp}
+%{_msp_home}/%{_app_name}
+#%{_msp_home}/conf/%{_app_config_tmp}
 
