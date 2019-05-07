@@ -7,7 +7,8 @@ class AppConfiguration {
     static String nginxType = 'nginx'
 
     static String defaultBuildDirectory = 'build'
-    static String defaultBuildCommand = 'build'
+    static String defaultBuildCommand = 'build:prod'
+    static String defaultBuildDevCommand = 'build:dev'
     static String defaultBuildTool = 'yarn'
 
     static String defaultArch = 'x86_64'
@@ -145,6 +146,15 @@ class AppConfiguration {
             }
         }
         return buildCommand == null ? defaultBuildCommand : buildCommand
+    }
+
+    static String getBuildDevCommand(String app) {
+        def buildCommand = projectList.findResult { it ->
+            if (it.get('app') == app) {
+                it.get('buildDevCommand')
+            }
+        }
+        return buildCommand == null ? defaultBuildDevCommand : buildCommand
     }
 
     static String getBuildTool(String app) {

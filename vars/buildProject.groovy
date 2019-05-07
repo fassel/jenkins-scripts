@@ -8,7 +8,7 @@ def call(String app, String branch, String version, String archive) {
     def repository = AppConfiguration.isSnapshot(branch) ? Consts.snapshotRepository : Consts.releaseRepository
 
     if (applicationType == AppConfiguration.frontendType) {
-        buildFrontend(app, version, archive)
+        buildFrontend(app, version, archive, AppConfiguration.isSnapshot(branch))
     } else if (applicationType == AppConfiguration.goType) {
         buildGo(app, version, archive)
     } else if (applicationType == AppConfiguration.javaType) {
@@ -41,9 +41,9 @@ def buildGo(app, version, archive) {
     }
 }
 
-def buildFrontend(app, version, archive) {
+def buildFrontend(app, version, archive, isSnapshot) {
     def buildDirectory = AppConfiguration.getBuildDirectory(app)
-    def buildCommand = AppConfiguration.getBuildCommand(app)
+    def buildCommand = isSnapshot ? AppConfiguration.getBuildDevCommand(app) : AppConfiguration.getBuildCommand(app)
     def buildTool = AppConfiguration.getBuildTool(app)
 
     env.NODEJS_HOME = "${tool Consts.nodeToolName}"
