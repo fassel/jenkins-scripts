@@ -45,8 +45,8 @@ for (projectConf in AppConfiguration.projectList) {
         definition {
             parameters {
                 stringParam('branch', 'master', 'Branch to build from')
-                booleanParam('testing', true, 'Run test or not')
-                booleanParam('runIntegrationTests', true, 'Run integration or only unit tests')
+                booleanParam('testing', false, 'Run test or not')
+                booleanParam('runIntegrationTests', false, 'Run integration or only unit tests')
                 booleanParam('notifyTelegram', false, 'Send Telegram notification')
             }
             cps {

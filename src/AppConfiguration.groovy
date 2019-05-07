@@ -53,7 +53,7 @@ class AppConfiguration {
                     archive    : 'fishtravel-admin.gz',
                     type       : frontendType,
                     taskName   : 'frontend',
-                    groupId    : 'ru.main.front',
+                    groupId    : 'main.front',
                     arch       : 'noarch',
                     rpmSpecFile: 'front.spec',
                     rpm        : true,
