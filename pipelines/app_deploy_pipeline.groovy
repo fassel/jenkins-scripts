@@ -33,9 +33,9 @@ node('master') {
     try {
         deleteDir()
 
-        stage('checkout configs') {
+        /*stage('checkout configs') {
             git (url: Consts.gitApplicationConfigs, branch: 'master', credentialsId: Consts.mp3DeployerCredential)
-        }
+        }*/
 
         stage('checkout') {
 
