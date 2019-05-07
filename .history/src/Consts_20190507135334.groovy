@@ -1,7 +1,7 @@
 class Consts {
 
     // ----- JOB NAMES -----
-    static String deployAppJobName = 'deploy-app'
+    static String deployAppJobName = 'deploy-application'
     static String publishInstallationJobName = 'publish-installation'
     static String publishReleaseJobName = 'publish-release'
     static String buildRpmJobName = 'publish-rpm'
@@ -11,16 +11,16 @@ class Consts {
     static String mainGenerateDslJobName = 'tech-auto-dsl'
 
     // ----- NEXUS -----
-    static String nexusUrl = 'https://nexus.tracker.fish'
-    static String releaseRepository = 'maven-releases'
-    static String snapshotRepository = 'maven-snapshots'
-    static String devopsReleaseRepository = 'ru/devops/release'
-    static String rpmRepositorySearch = 'yum'
-    static String rpmSnapshotRepositorySearch = 'yum-snapshots'
+    static String nexusUrl = 'https://nexus.msp.mobi'
+    static String releaseRepository = 'msp-maven-releases'
+    static String snapshotRepository = 'msp-maven-snapshots'
+    static String devopsReleaseRepository = 'ru/msp/devops/release'
+    static String rpmRepositorySearch = 'msp-yum'
+    static String rpmSnapshotRepositorySearch = 'msp-yum-snapshots'
     static String rpmRepository = "${rpmRepositorySearch}/main"
     static String rpmSnapshotRepository = "${rpmSnapshotRepositorySearch}/main"
-    static String nexusUser = 'asavchuk'
-    static String nexusPassword = 'nUQBQFoYp7pn3jnaBzhed2hq'
+    static String nexusUser = 'mp3deployer'
+    static String nexusPassword = 'ScjKLQuvqfAXu2bs8ysLAvRt'
     static String nexusCredentials = "${nexusUser}:${nexusPassword}"
 
     // ----- CREDENTIALS -----

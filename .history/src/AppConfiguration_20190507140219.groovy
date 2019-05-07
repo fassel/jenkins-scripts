@@ -575,16 +575,15 @@ class AppConfiguration {
             //         rpm       : true,
             // ]
             [
-                    project    : 'main',
-                    app        : 'fishtravel-admin',
-                    repository : 'git@gitlab.tracker.fish:development/fishtravel-admin.git',
-                    archive    : 'fishtravel-admin.gz',
-                    type       : goType,
-                    taskName   : 'frontend',
-                    groupId    : 'ru.main.front',
-                    arch       : 'noarch',
-                    rpmSpecFile: 'front.spec',
-                    rpm        : true,
+                    project   : 'main',
+                    app       : 'fishtravel-admin',
+                    repository: 'git@gitlab.alx:main.0/mdm-sma-service.git',
+                    archive   : 'mdm-sma-service.tar.gz',
+                    type      : goType,
+                    taskName  : 'main',
+                    groupId   : 'ru.main.module',
+                    arch      : 'x86_64',
+                    rpm       : true,
             ]
     ].asImmutable()
 

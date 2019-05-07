@@ -20,7 +20,7 @@ class Consts {
     static String rpmRepository = "${rpmRepositorySearch}/main"
     static String rpmSnapshotRepository = "${rpmSnapshotRepositorySearch}/main"
     static String nexusUser = 'asavchuk'
-    static String nexusPassword = 'nUQBQFoYp7pn3jnaBzhed2hq'
+    static String nexusPassword = 'ScjKLQuvqfAXu2bs8ysLAvRt'
     static String nexusCredentials = "${nexusUser}:${nexusPassword}"
 
     // ----- CREDENTIALS -----

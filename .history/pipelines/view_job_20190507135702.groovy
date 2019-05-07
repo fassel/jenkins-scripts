@@ -52,23 +52,23 @@ listView('tech-view') {
     }
 }*/
 
-// listView('main-build') {
-//     description('Jobs for main')
-//     jobs {
-//         regex(/(m|i)ain-build.+/)
-//     }
-//     columns {
-//         name()
-//         status()
-//         lastDuration()
-//         lastSuccess()
-//         lastFailure()
-//         buildButton()
-//     }
-// }
+listView('main-build') {
+    description('Jobs for main')
+    jobs {
+        regex(/(m|i)ain-build.+/)
+    }
+    columns {
+        name()
+        status()
+        lastDuration()
+        lastSuccess()
+        lastFailure()
+        buildButton()
+    }
+}
 
 listView('frontend-build') {
-    description('Jobs for frontend projects')
+    description('Jobs for front')
     jobs {
         regex(/frontend-build.+/)
     }

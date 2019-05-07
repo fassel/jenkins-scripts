@@ -1,9 +1,9 @@
 def Consts = this.class.classLoader.parseClass(this.readFileFromWorkspace('src/Consts.groovy'))
 
-listView('java-build') {
-    description('Jobs for java projects')
+listView('city-build-view') {
+    description('Jobs for citymatica')
     jobs {
-        regex(/build.+/)
+        regex(/city-build.+/)
     }
     columns {
         name()
@@ -15,8 +15,8 @@ listView('java-build') {
     }
 }
 
-listView('tech-view') {
-    description('Technical jobs')
+listView('city-tech-view') {
+    description('Jobs for citymatica')
     jobs {
         //regex(/city-tech.+/)
         name(Consts.mainGenerateDslJobName)
@@ -52,23 +52,23 @@ listView('tech-view') {
     }
 }*/
 
-// listView('main-build') {
-//     description('Jobs for main')
-//     jobs {
-//         regex(/(m|i)ain-build.+/)
-//     }
-//     columns {
-//         name()
-//         status()
-//         lastDuration()
-//         lastSuccess()
-//         lastFailure()
-//         buildButton()
-//     }
-// }
+listView('main-build') {
+    description('Jobs for main')
+    jobs {
+        regex(/(m|i)ain-build.+/)
+    }
+    columns {
+        name()
+        status()
+        lastDuration()
+        lastSuccess()
+        lastFailure()
+        buildButton()
+    }
+}
 
 listView('frontend-build') {
-    description('Jobs for frontend projects')
+    description('Jobs for front')
     jobs {
         regex(/frontend-build.+/)
     }
