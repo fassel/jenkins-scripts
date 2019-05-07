@@ -41,6 +41,7 @@ node('master') {
 
             def url = "${Consts.nexusUrl}/service/rest/v1/search?repository=${repository}&name=${app}"
             process = ["curl", "-u", "${Consts.nexusCredentials}", "-k", "-X", "GET", "-H", "Accept: application/json", "${url}"]
+            println "CRED: ${Consts.nexusCredentials} AND URL: ${url}"
 
             def initialSize = 4096
             def out = new ByteArrayOutputStream(initialSize)
