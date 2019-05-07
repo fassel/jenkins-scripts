@@ -86,7 +86,7 @@ node('master') {
             currentBuild.description = "${app}:${version} / ${deployAs} / ${domain}"
 
             process = ["curl", "-u", "${Consts.nexusCredentials}", "-k", "-o", "${WORKSPACE}/${archive}", "${downloadUrl}"]
-            println "curl -u ${Consts.nexusCredentials} -k -o AND URL: '${WORKSPACE}/${archive}' '${downloadUrl}'"
+            println "curl -u ${Consts.nexusCredentials} -k -o '${WORKSPACE}/${archive}' '${downloadUrl}'"
             proc = process.execute()
             println proc.err.text
 

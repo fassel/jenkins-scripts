@@ -50,7 +50,7 @@ class AppConfiguration {
                     project    : 'main',
                     app        : 'fishtravel-admin',
                     repository : 'git@gitlab.tracker.fish:development/fishtravel-admin.git',
-                    archive    : 'fishtravel-admin.gz',
+                    archive    : 'fishtravel-admin.tar.gz',
                     type       : frontendType,
                     taskName   : 'frontend',
                     groupId    : 'main.front',
