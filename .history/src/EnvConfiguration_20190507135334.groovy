@@ -10,11 +10,11 @@ class EnvConfiguration {
             // stage name
             'dev.tracker.fish' : [
                     host      : 'dev.tracker.fish',
-                    deployPath: '/var/www/admin/build',
+                    deployPath: '/var/www',
             ],
             'prod.tracker.fish': [
                     host      : 'prod.tracker.fish',
-                    deployPath: '/var/www/admin/build',
+                    deployPath: '/var/www',
             ],
             /*'msp2-dev-117'                    : [
                     // Host ip or domain
