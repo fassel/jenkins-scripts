@@ -56,7 +56,7 @@ class AppConfiguration {
                     groupId    : 'main.front',
                     arch       : 'noarch',
                     rpmSpecFile: 'front.spec',
-                    rpm        : true,
+                    rpm        : false,
             ]
     ].asImmutable()
 
