@@ -42,7 +42,7 @@ pipelineJob(Consts.deployAppJobName) {
                     script(""" 
                         try {
                             if (projectType == '${AppConfiguration.frontendType}') {
-                                return ['${Consts.deployAsRpm}', '${Consts.deployAsArchive}']
+                                return ['${Consts.deployAsArchive}', '${Consts.deployAsRpm}']
                             }
                             if (projectType == '${AppConfiguration.goType}') {
                                 return ['${Consts.deployAsRpm}', '${Consts.deployAsDocker}']
