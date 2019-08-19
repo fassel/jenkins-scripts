@@ -53,8 +53,8 @@ def buildFrontend(app, version, archive, isSnapshot) {
     sh "${buildTool} --version"
     sh "${buildTool} --ignore-engines install"
     sh "${buildTool} --ignore-engines run ${buildCommand}"
-    println "tar -C ${WORKSPACE}/${buildDirectory} -czfP ${WORKSPACE}/archive/${archive} ."
-    sh("tar -C ${WORKSPACE}/${buildDirectory} -czfP ${WORKSPACE}/archive/${archive} .")
+    println "tar -C ${WORKSPACE}/${buildDirectory} -cvzf ${WORKSPACE}/archive/${archive} ."
+    sh("tar -C ${WORKSPACE}/${buildDirectory} -cvzf ${WORKSPACE}/archive/${archive} .")
     /*writeFile file: 'Dockerfile', text: dockerfile()
 
     sh("${tool Consts.dockerToolName} build -t \"${app}:1\" .")
