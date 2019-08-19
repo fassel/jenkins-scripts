@@ -66,6 +66,7 @@ class AppConfiguration {
                     type       : frontendType,
                     taskName   : 'frontend',
                     groupId    : 'main.front',
+                    buildTool  : 'npm',
                     arch       : 'noarch',
                     rpmSpecFile: 'front.spec',
                     rpm        : false,
