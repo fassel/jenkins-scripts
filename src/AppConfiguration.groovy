@@ -57,6 +57,18 @@ class AppConfiguration {
                     arch       : 'noarch',
                     rpmSpecFile: 'front.spec',
                     rpm        : false,
+            ],
+            [
+                    project    : 'main',
+                    app        : 'fishtravel-uber',
+                    repository : 'git@gitlab.tracker.fish:development/fishtravel-uber.git',
+                    archive    : 'fishtravel-uber.tar.gz',
+                    type       : frontendType,
+                    taskName   : 'frontend',
+                    groupId    : 'main.front',
+                    arch       : 'noarch',
+                    rpmSpecFile: 'front.spec',
+                    rpm        : false,
             ]
     ].asImmutable()
 
