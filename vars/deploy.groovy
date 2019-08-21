@@ -114,7 +114,7 @@ def deployDefault(host, archive, deployPath, app, domain, isDocker) {
                 sshCommand remote: remote, command: "cd ${deployPath}/${app} && chmod +x ${Consts.executeAfterDeployFileName} && ./${Consts.executeAfterDeployFileName}"
             }
         }
-        if (afterBuildCommand !== '') {
+        if (afterBuildCommand != '') {
             sh(afterBuildCommand)
         }
     }
