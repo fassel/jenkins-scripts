@@ -115,7 +115,10 @@ def deployDefault(host, archive, deployPath, app, domain, isDocker) {
             }
         }
         if (afterBuildCommand != '') {
-            sshCommand remote: remote, command: afterBuildCommand
+            try {
+                sshCommand remote: remote, command: afterBuildCommand
+            } catch (e) {
+            }
         }
     }
     // && (docker exec -t nginx service nginx restart || true)
