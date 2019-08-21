@@ -87,6 +87,7 @@ def deployDefault(host, archive, deployPath, app, domain, isDocker) {
         remote.user = userName
         remote.identityFile = identity
         def configFilesPath = checkConfigFiles(domain, app)
+        def afterBuildCommand = AppConfiguration.getAfterBuildCommand(app)
         println '-----------------------------'
         println "FILE CONFIGS FOR PROJECT: ${app} AND DOMAIN: ${domain} IS: ${configFilesPath}"
 
@@ -112,6 +113,9 @@ def deployDefault(host, archive, deployPath, app, domain, isDocker) {
             if (executeFile.isFile()) {
                 sshCommand remote: remote, command: "cd ${deployPath}/${app} && chmod +x ${Consts.executeAfterDeployFileName} && ./${Consts.executeAfterDeployFileName}"
             }
+        }
+        if (afterBuildCommand !== '') {
+            sh(afterBuildCommand)
         }
     }
     // && (docker exec -t nginx service nginx restart || true)
