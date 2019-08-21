@@ -69,8 +69,7 @@ class AppConfiguration {
                     type             : frontendType,
                     buildDirectory   : 'public',
                     taskName         : 'frontend',
-                    afterBuildCommand: 'sudo systemctl stop fishtravelus-front && sudo systemctl start ' +
-                            'fishtravelus-front && sudo systemctl status fishtravelus-front',
+                    afterBuildCommand: 'sudo systemctl stop fishtravelus-front && sudo systemctl start fishtravelus-front',
                     groupId          : 'main.front',
                     buildTool        : 'npm',
                     arch             : 'noarch',
