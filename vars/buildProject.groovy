@@ -45,6 +45,7 @@ def buildFrontend(app, version, archive, isSnapshot) {
     def buildDirectory = AppConfiguration.getBuildDirectory(app)
     def buildCommand = isSnapshot ? AppConfiguration.getBuildDevCommand(app) : AppConfiguration.getBuildCommand(app)
     def buildTool = AppConfiguration.getBuildTool(app)
+    def afterBuildCommand = AppConfiguration.getAfterBuildCommand(app)
 
     env.NODEJS_HOME = "${tool Consts.nodeToolName}"
     env.PATH = "${env.NODEJS_HOME}/bin:${env.PATH}"
@@ -54,7 +55,9 @@ def buildFrontend(app, version, archive, isSnapshot) {
     sh "${buildTool} --ignore-engines install"
     sh "${buildTool} --ignore-engines run ${buildCommand}"
     println "tar -C ${WORKSPACE}/${buildDirectory} -cvzf ${WORKSPACE}/archive/${archive} ."
-    sh("tar -C ${WORKSPACE}/${buildDirectory} -cvzf ${WORKSPACE}/archive/${archive} .")
+    if (afterBuildCommand !== '') {
+        sh(afterBuildCommand)
+    }
     /*writeFile file: 'Dockerfile', text: dockerfile()
 
     sh("${tool Consts.dockerToolName} build -t \"${app}:1\" .")

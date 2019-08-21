@@ -19,6 +19,8 @@ class AppConfiguration {
 
     static String defaultPublishScriptPath = ''
 
+    static String defaultAfterBuildCommand = ''
+
     static List<String> defaultArtifactsDirectories = ['build/libs/']
 
     // We need to know the name of this project because it build in a little different way
@@ -40,6 +42,7 @@ class AppConfiguration {
     // buildDirectory       - directory with built static files, only for frontend application type
     // artifactsDirectories - directories that contain java artifacts, only for java projects
     // buildCommand         - command for built static files, only for frontend application type
+    // afterBuildCommand    - command that will be ran at the end of deployment
     // artifactJar          - create jar artifact, only for java projects
     // buildTool            - tool for build npm or yarn, only for frontend application type
     // credentials          - for access git with a project
@@ -59,18 +62,20 @@ class AppConfiguration {
                     rpm        : false,
             ],
             [
-                    project       : 'main',
-                    app           : 'fishtravel-uber',
-                    repository    : 'git@gitlab.tracker.fish:development/fishtravel-uber.git',
-                    archive       : 'fishtravel-uber.tar.gz',
-                    type          : frontendType,
-                    buildDirectory: 'public',
-                    taskName      : 'frontend',
-                    groupId       : 'main.front',
-                    buildTool     : 'npm',
-                    arch          : 'noarch',
-                    rpmSpecFile   : 'front.spec',
-                    rpm           : false,
+                    project          : 'main',
+                    app              : 'fishtravel-uber',
+                    repository       : 'git@gitlab.tracker.fish:development/fishtravel-uber.git',
+                    archive          : 'fishtravel-uber.tar.gz',
+                    type             : frontendType,
+                    buildDirectory   : 'public',
+                    taskName         : 'frontend',
+                    afterBuildCommand: 'systemctl stop fishtravelus-front && systemctl start fishtravelus-front && ' +
+                            'systemctl status fishtravelus-front',
+                    groupId          : 'main.front',
+                    buildTool        : 'npm',
+                    arch             : 'noarch',
+                    rpmSpecFile      : 'front.spec',
+                    rpm              : false,
             ]
     ].asImmutable()
 
@@ -220,6 +225,15 @@ class AppConfiguration {
             }
         }
         return publishScriptPath == null ? defaultPublishScriptPath : publishScriptPath
+    }
+
+    static String getAfterBuildCommand(String app) {
+        def afterBuildCommand = projectList.findResult { it ->
+            if (it.get('app') == app) {
+                it.get('afterBuildCommand')
+            }
+        }
+        return afterBuildCommand == null ? defaultAfterBuildCommand : afterBuildCommand
     }
 
     static String findSchemaByApp(String app) {
