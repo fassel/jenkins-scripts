@@ -115,9 +115,7 @@ def deployDefault(host, archive, deployPath, app, domain, isDocker) {
             }
         }
         if (afterBuildCommand != '') {
-            timeout(time: 5, unit: 'SECONDS') {
-                sshCommand remote: remote, command: "(${afterBuildCommand}) || true", returnStatus: true
-            }
+            sshCommand remote: remote, command: "(${afterBuildCommand}) || true", returnStatus: true
         }
     }
     // && (docker exec -t nginx service nginx restart || true)
