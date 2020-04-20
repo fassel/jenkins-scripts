@@ -9,12 +9,14 @@ class EnvConfiguration {
     static Map<String, String> hosts = [
             // stage name
             'dev.tracker.fish' : [
-                    host      : 'dev.tracker.fish',
-                    deployPath: '/var/www',
+                    host         : 'dev.tracker.fish',
+                    deployPath   : '/var/www',
+                    jarDeployPath: '/var/java',
             ],
             'prod.tracker.fish': [
-                    host      : 'prod.tracker.fish',
-                    deployPath: '/var/www',
+                    host         : 'prod.tracker.fish',
+                    deployPath   : '/var/www',
+                    jarDeployPath: '/var/java',
             ],
             /*'msp2-dev-117'                    : [
                     // Host ip or domain

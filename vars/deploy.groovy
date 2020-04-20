@@ -6,6 +6,7 @@ def call(String app, String domain, String archive, String deployAs) {
 
     def hostParams = EnvConfiguration.findHost(domain)
     def host = hostParams.host
+    def artifactJar = AppConfiguration.getArtifactJar(app)
     if (host == null) {
         currentBuild.result = 'FAILURE'
         currentBuild.description = "Unknown domain name $domain"
@@ -20,6 +21,10 @@ def call(String app, String domain, String archive, String deployAs) {
     } else if (deployAs == Consts.deployAsTomcatArtifact) {
         def tomcatDeployPath = hostParams.warDeployPath ? hostParams.warDeployPath : EnvConfiguration.defaultTomcatDeployPath
         deployWar(host, archive, tomcatDeployPath)
+        return
+    } else if (deployAs == Consts.deployAsArchive && artifactJar) {
+        def deployPath = hostParams.jarDeployPath ? hostParams.jarDeployPath : EnvConfiguration.defaultDeployPath
+        deployDefault(host, archive, deployPath, app, domain, deployAs == Consts.deployAsDocker)
         return
     } else if (deployAs == Consts.deployAsDocker || deployAs == Consts.deployAsArchive) {
         def deployPath = hostParams.deployPath ? hostParams.deployPath : EnvConfiguration.defaultDeployPath
@@ -71,7 +76,7 @@ def deployRpm(host, archive, deployPath, app, arch, domain) {
 
 def deployDefault(host, archive, deployPath, app, domain, isDocker) {
     def archiveLocalLocation = "/tmp/${archive}"
-
+    def artifactJar = AppConfiguration.getArtifactJar(app)
     if (!fileExists(archiveLocalLocation)) {
         currentBuild.result = 'FAILURE'
         currentBuild.description = "Build archive $archiveLocalLocation not found"
@@ -101,7 +106,9 @@ def deployDefault(host, archive, deployPath, app, domain, isDocker) {
             sshCommand remote: remote, command: "cd ${deployPath}/${app} && docker-compose stop"
         }
         sshPut remote: remote, from: "${archiveLocalLocation}", into: "${deployPath}/${app}/${archive}"
-        sshCommand remote: remote, command: "cd ${deployPath}/${app} && tar -xzvmf ${archive} && rm ${archive}"
+        if (!artifactJar) {
+            sshCommand remote: remote, command: "cd ${deployPath}/${app} && tar -xzvmf ${archive} && rm ${archive}"
+        }
         if (configFilesPath) {
             sshPut remote: remote, from: "${configFilesPath}", into: "${deployPath}"
         }
