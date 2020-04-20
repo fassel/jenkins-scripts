@@ -86,6 +86,7 @@ class AppConfiguration {
                     taskName         : 'frontend',
                     afterBuildCommand: 'sudo systemctl stop linga-back && sudo systemctl start linga-back',
                     groupId          : 'io.linga',
+                    artifactJar      : true,
                     rpm              : false,
             ]
     ].asImmutable()
