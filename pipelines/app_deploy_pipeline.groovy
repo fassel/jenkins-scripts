@@ -41,7 +41,7 @@ node('master') {
 
             def url = "${Consts.nexusUrl}/service/rest/v1/search?repository=${repository}&name=${app}"
             process = ["curl", "-u", "${Consts.nexusCredentials}", "-k", "-X", "GET", "-H", "Accept: application/json", "${url}"]
-            println "CRED: ${Consts.nexusCredentials} AND URL: ${url}"
+            println "URL: ${url}"
 
             def initialSize = 4096
             def out = new ByteArrayOutputStream(initialSize)
@@ -86,7 +86,7 @@ node('master') {
             currentBuild.description = "${app}:${version} / ${deployAs} / ${domain}"
 
             process = ["curl", "-u", "${Consts.nexusCredentials}", "-k", "-o", "/tmp/${archive}", "${downloadUrl}"]
-            println "curl -u ${Consts.nexusCredentials} -k -o '${WORKSPACE}/${archive}' '${downloadUrl}'"
+            println "curl -u ***:*** -k -o '${WORKSPACE}/${archive}' '${downloadUrl}'"
             proc = process.execute()
             println proc.err.text
 

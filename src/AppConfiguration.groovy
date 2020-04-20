@@ -79,7 +79,7 @@ class AppConfiguration {
             [
                     project          : 'io',
                     app              : 'linga-back',
-                    repository       : 'git@gitlab.tracker.fish:development/fishtravel-uber.git',
+                    repository       : 'https://github.com/linga-io/linga-back.git',
                     archive          : 'linga-back.jar',
                     type             : javaType,
                     buildDirectory   : 'public',
