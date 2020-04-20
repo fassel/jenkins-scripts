@@ -11,12 +11,12 @@ class EnvConfiguration {
             'dev.tracker.fish' : [
                     host         : 'dev.tracker.fish',
                     deployPath   : '/var/www',
-                    jarDeployPath: '/var/java',
+                    jarDeployPath: '/opt/linga/back',
             ],
             'prod.tracker.fish': [
                     host         : 'prod.tracker.fish',
                     deployPath   : '/var/www',
-                    jarDeployPath: '/var/java',
+                    jarDeployPath: '/opt/linga/back',
             ],
             /*'msp2-dev-117'                    : [
                     // Host ip or domain
