@@ -47,6 +47,9 @@ pipelineJob(Consts.deployAppJobName) {
                             if (projectType == '${AppConfiguration.goType}') {
                                 return ['${Consts.deployAsRpm}', '${Consts.deployAsDocker}']
                             }
+                            if (projectType == '${AppConfiguration.javaType}') {
+                                return ['${Consts.deployAsArchive}', '${Consts.deployAsRpm}']
+                            }
                             if (projectType == '${AppConfiguration.tomcatType}' || projectType == '${AppConfiguration.nginxType}') {
                                 return ['${Consts.deployAsRpm}']
                             }
