@@ -75,6 +75,18 @@ class AppConfiguration {
                     arch             : 'noarch',
                     rpmSpecFile      : 'front.spec',
                     rpm              : false,
+            ],
+            [
+                    project          : 'io',
+                    app              : 'linga-back',
+                    repository       : 'git@gitlab.tracker.fish:development/fishtravel-uber.git',
+                    archive          : 'linga-back.jar',
+                    type             : javaType,
+                    buildDirectory   : 'public',
+                    taskName         : 'frontend',
+                    afterBuildCommand: 'sudo systemctl stop linga-back && sudo systemctl start linga-back',
+                    groupId          : 'io.linga',
+                    rpm              : false,
             ]
     ].asImmutable()
 

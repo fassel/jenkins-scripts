@@ -78,7 +78,7 @@ def buildJava(app, testing, isSnapshot) {
         currentBuild.description = "${app}:${version}"
     }
     if (app == AppConfiguration.adminAppName) {
-        sh("${tool Consts.gradleToolName}/bin/gradle -x test --configure-on-demand :admin:clean :admin:npmRunBuild")
+        sh("./gradlew -x test -x jooq-codegen-primary")
     }
 
     if (testing) {
