@@ -18,6 +18,11 @@ class EnvConfiguration {
                     deployPath   : '/var/www',
                     jarDeployPath: '/opt/linga',
             ],
+            'prod.linga': [
+                    host         : 'linga.io',
+                    deployPath   : '/var/www',
+                    jarDeployPath: '/opt/linga',
+            ],
             /*'msp2-dev-117'                    : [
                     // Host ip or domain
                     host            : '10.250.9.117',
