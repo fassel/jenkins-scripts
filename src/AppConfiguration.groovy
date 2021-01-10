@@ -88,6 +88,21 @@ class AppConfiguration {
                     groupId          : 'io.linga',
                     artifactJar      : true,
                     rpm              : false,
+            ],
+            [
+                    project          : 'io',
+                    app              : 'linga-admin',
+                    repository       : 'https://github.com/linga-io/linga-admin.git',
+                    archive          : 'linga-admin.jar',
+                    type             : frontendType,
+                    buildDirectory   : 'public',
+                    taskName         : 'frontend',
+                    afterBuildCommand: 'sudo systemctl stop linga-admin && sudo systemctl start linga-admin',
+                    groupId          : 'io.linga',
+                    buildTool        : 'yarn',
+                    arch             : 'noarch',
+                    rpmSpecFile      : 'front.spec',
+                    rpm              : false,
             ]
     ].asImmutable()
 
