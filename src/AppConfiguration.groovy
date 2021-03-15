@@ -101,6 +101,19 @@ class AppConfiguration {
                     arch             : 'noarch',
                     rpmSpecFile      : 'front.spec',
                     rpm              : false,
+            ],
+            [
+                    project          : 'io',
+                    app              : 'linga-front',
+                    repository       : 'https://github.com/linga-io/linga-front.git',
+                    archive          : 'linga-front.tar.gz',
+                    type             : frontendType,
+                    taskName         : 'frontend',
+                    groupId          : 'io.linga',
+                    buildTool        : 'yarn',
+                    arch             : 'noarch',
+                    rpmSpecFile      : 'front.spec',
+                    rpm              : false,
             ]
     ].asImmutable()
 
