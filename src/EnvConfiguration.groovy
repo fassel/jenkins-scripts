@@ -13,6 +13,11 @@ class EnvConfiguration {
                     deployPath   : '/var/www',
                     jarDeployPath: '/opt/linga',
             ],
+            'dev.linga.io' : [
+                    host         : 'dev.linga.io',
+                    deployPath   : '/var/www',
+                    jarDeployPath: '/opt/linga',
+            ],
             'prod.tracker.fish': [
                     host         : 'prod.tracker.fish',
                     deployPath   : '/var/www',
